@@ -1,38 +1,44 @@
-class ApiUtil {
-    constractor(prefix) {
+export default class ApiUtil {
+    constructor(prefix) {
         this.prefix = prefix;
     }
 
-    async _request(url, init, headers) {
+    _request(url, init, headers) {
+    
         url = this.prefix ? `${this.prefix}${url}` : url;
         let options = Object.assign({},  {
-            credentials: 'include', //允许跨域
+            mode: 'cors'
         }, init);
 
         options.headers = Object.assign({}, options.headers || {}, headers || {});
-        let response = await fetch(url, options);
-        response = this.parseResponse(response);
-        return response;
+        // let response = await fetch(url, options);
+        // response = this.parseResponse(response);
+        // return response;
+        console.log(url, options)
+        return fetch(url, options).then(response => {
+            const _response = this.parseResponse(response);
+            return _response;
+        })
     }
 
-    async parseResponse(response) {
+    parseResponse(response) {
         let newResponse = this.checkStatus(response);
-        return await this.paraseBody(response);
+        return this.parseBody(newResponse);
     }
 
-    async parseBody(response) {
+    parseBody(response) {
         const contentType = response.headers.get('Content-Type');
         if (contentType) {
             if (contentType.indexOf('text') !== -1) {
-                return await response.text();
+                return response.text();
             }
 
             if (contentType.indexOf('json') !== -1) {
-                return await response.json();
+                return response.json();
             }
 
             if (contentType.indexOf('form') !== -1) {
-                return await response.formData();
+                return response.formData();
             }
         }
     }
@@ -50,58 +56,58 @@ class ApiUtil {
     }
 
     get(url, headers, options) {
-        let headers = Object.assign({}, {
+        let _headers = Object.assign({}, {
             'Content-Type': 'application/json'
         }, headers);
 
-        let options = Object.assign({}, options);
+        let _options = Object.assign({}, options);
 
-        return this._request(url, options, headers);        
+        return this._request(url, _options, _headers);        
     }
 
     post(url, data, headers, options) {
-        let headers = Object.assign({}, {
+        let _headers = Object.assign({}, {
             'Content-Type': 'application/json'
         }, headers);
 
         let _submitData = this.parseRequestBody(data, headers);
 
-        let options = Object.assign({}, {
+        let _options = Object.assign({}, {
             method: 'POST',
             body: _submitData
         }, options);
 
-        return this._request(url, options, headers);        
+        return this._request(url, _options, _headers);        
     }
 
     put(url, data, headers, options) {
-        let headers = Object.assign({}, {
+        let _headers = Object.assign({}, {
             'Content-Type': 'application/json'
         }, headers);
 
         let _submitData = this.parseRequestBody(data, headers);
 
-        let options = Object.assign({}, {
+        let _options = Object.assign({}, {
             method: 'PUT',
             body: _submitData
         }, options);
 
-        return this._request(url, options, headers);        
+        return this._request(url, _options, _headers);        
     }
 
     delete(url, data, headers, options) {
-        let headers = Object.assign({}, {
+        let _headers = Object.assign({}, {
             'Content-Type': 'application/json'
         }, headers);
 
         let _submitData = this.parseRequestBody(data, headers);
 
-        let options = Object.assign({}, {
+        let _options = Object.assign({}, {
             method: 'DELETE',
             body: _submitData
         }, options);
 
-        return this._request(url, options, headers);        
+        return this._request(url, _options, _headers);        
     }
 
     parseRequestBody(data, headers) {
@@ -121,6 +127,4 @@ class ApiUtil {
         return data;
 
     }
-}
-
-export default ApiUtil;
+};

@@ -5,6 +5,8 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
+import useRecord from '../hooks/use-record';
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -26,45 +28,25 @@ const useStyles = makeStyles(theme => ({
 export default function SideList(props) {
     const classes = useStyles();
 
-    const [ records, setRecords ] = useState([
-        '此时此刻， 非你莫属',
-        '那你提供一个解决方案嘛',
-        '此时此刻， 非你莫属',
-        '那你提供一个解决方案嘛',
-        '此时此刻， 非你莫属',
-        '那你提供一个解决方案嘛',
-        '此时此刻， 非你莫属',
-        '那你提供一个解决方案嘛',
-        '此时此刻， 非你莫属',
-        '那你提供一个解决方案嘛',
-        '此时此刻， 非你莫属',
-        '那你提供一个解决方案嘛',
-        '此时此刻， 非你莫属',
-        '那你提供一个解决方案嘛',
-        '那你提供一个解决方案嘛',
-        '此时此刻， 非你莫属',
-        '那你提供一个解决方案嘛',
-        '此时此刻， 非你莫属',
-        '那你提供一个解决方案嘛',
-        '那你提供一个解决方案嘛',
-        '此时此刻， 非你莫属',
-        '那你提供一个解决方案嘛',
-        '此时此刻， 非你莫属',
-        '那你提供一个解决方案嘛'
-    ]);
+    const { records, loading, error } = useRecord();
     
 
     return (
         <Paper className={classes.paper}>
-             <List className={classes.record} component="nav" aria-label="secondary mailbox folders">
+            {
+                loading ? 
+                <div>Loading...</div> : 
+                (<List className={classes.record} component="nav" aria-label="secondary mailbox folders">
                 {
                     records.map(record => (
                         <ListItem divider button>
-                            <ListItemText primary={record} />
+                            <ListItemText primary={record.content} />
                         </ListItem>      
                     ))
                 }   
-             </List>
+                </List>)
+            }
+          
         </Paper>
 
     )

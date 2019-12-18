@@ -1,7 +1,7 @@
 import api from './base-api';
 
 class RecordService {
-    constractor(api) {
+    constructor(api) {
         this.api = api;
     }
 

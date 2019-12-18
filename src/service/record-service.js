@@ -1,7 +1,7 @@
-import api from './base-api';
-
+import { baseApi } from './base-api';
+console.log(baseApi);
 class RecordService {
-    constractor(api) {
+    constructor(api) {
         this.api = api;
     }
 
@@ -23,4 +23,4 @@ class RecordService {
 }
 
 
-export default new RecordService(api);
+export default new RecordService(baseApi);

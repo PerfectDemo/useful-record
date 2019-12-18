@@ -1,2 +1,3 @@
-import ApiUril from '../tools/api-util';
-export default New ApiUil('https://jsonbox.io/box_50be4f02f97001bbdb87';)
+import ApiUtil from '../tools/api-util';
+
+export let baseApi = new ApiUtil('https://jsonbox.io/box_50be4f02f97001bbdb87');
