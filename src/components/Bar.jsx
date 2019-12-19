@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import AppBar from '@material-ui/core/AppBar';
@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
-
+import { Context } from '../context';
 
 
 const useStyles = makeStyles(theme => ({
@@ -30,6 +30,8 @@ const useStyles = makeStyles(theme => ({
 export default function Bar() {
     const classes = useStyles();
 
+    const { setAddRecordDialogVisible } = useContext(Context);
+
     return (
       <div className={classes.root}>
         <AppBar position="static">
@@ -41,7 +43,7 @@ export default function Bar() {
                 带佬语录
             </Typography>
 
-            <Fab size="small" color="primary"  aria-label="add">
+            <Fab size="small" color="primary"  aria-label="add" onClick={() => setAddRecordDialogVisible(true)}>
                 <AddIcon />
             </Fab>
           </Toolbar>

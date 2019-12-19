@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { Context } from '../context';
 
 import { Paper, Grid, Divider } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
@@ -31,15 +32,13 @@ const useStyles = makeStyles(theme => ({
 
 export default function Detail() {
     const classes = useStyles();
+    const { selectedRecord } = useContext(Context);
 
     return (
         <Paper className={classes.title}>
             <div className={classes.content}>
                 <Typography  variant="h3" component="h3">
-                    攻玉是个好同学
-                </Typography>
-                <Typography component="p">
-                Paper can be used to build surface or other elements for your application.
+                    {selectedRecord ? selectedRecord.content : ''}
                 </Typography>
             </div>
             <Divider />

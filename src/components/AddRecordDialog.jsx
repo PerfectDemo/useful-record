@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useContext, useState } from 'react';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -9,22 +8,29 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-const useStyles = makeStyles({});
+import { Context } from '../context';
 
 export default function AddRecordDialog() {
-    const [open, setOpen] = React.useState(true);
-    const classes = useStyles();
+    const { addRecordDialogVisible, setAddRecordDialogVisible, addRecord } = useContext(Context);
+    const [ inputRecord, setInputRecord ] = useState(null);
 
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
-  
     const handleClose = () => {
-      setOpen(false);
+        setAddRecordDialogVisible(false);
     };
+
+    const onChange = (event) => {
+        setInputRecord({
+            content: event.target.value
+        });
+    }
+
+    const onSumbit = () => {
+        addRecord(inputRecord);
+        setAddRecordDialogVisible(false);
+    }
 
     return (
-        <Dialog  fullWidth maxWidth="md" open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <Dialog fullWidth maxWidth="md" open={addRecordDialogVisible} onClose={handleClose} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">写入你敬爱的带佬金句</DialogTitle>
             <DialogContent>
                 <TextField
@@ -35,10 +41,11 @@ export default function AddRecordDialog() {
                     label="带佬金句"
                     type="email"
                     fullWidth
+                    onChange={onChange}
                 />
             </DialogContent>
             <DialogActions>
-            <Button onClick={handleClose} color="primary">
+            <Button onClick={onSumbit} color="primary">
                 提交
             </Button>
             <Button onClick={handleClose} color="primary">

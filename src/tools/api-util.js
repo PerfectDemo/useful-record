@@ -70,7 +70,7 @@ export default class ApiUtil {
             'Content-Type': 'application/json'
         }, headers);
 
-        let _submitData = this.parseRequestBody(data, headers);
+        let _submitData = this.parseRequestBody(data, _headers);
 
         let _options = Object.assign({}, {
             method: 'POST',
@@ -85,7 +85,7 @@ export default class ApiUtil {
             'Content-Type': 'application/json'
         }, headers);
 
-        let _submitData = this.parseRequestBody(data, headers);
+        let _submitData = this.parseRequestBody(data, _headers);
 
         let _options = Object.assign({}, {
             method: 'PUT',
@@ -100,7 +100,7 @@ export default class ApiUtil {
             'Content-Type': 'application/json'
         }, headers);
 
-        let _submitData = this.parseRequestBody(data, headers);
+        let _submitData = this.parseRequestBody(data, _headers);
 
         let _options = Object.assign({}, {
             method: 'DELETE',
@@ -111,7 +111,7 @@ export default class ApiUtil {
     }
 
     parseRequestBody(data, headers) {
-        if (headers['Content-Type'].indexOf('form') !== -1 || headers['content-type'].indexOf('form') !== -1) {
+        if (headers['Content-Type'].indexOf('form') !== -1) {
             const formData = new FormData();
             for (let key in data) {
                 formData.append(key, data[key]);
@@ -120,7 +120,7 @@ export default class ApiUtil {
             return formData;
         }
 
-        if (headers['Content-Type'].indexOf('json') !== -1 || headers['content-type'].indexOf('json') !== -1) {
+        if (headers['Content-Type'].indexOf('json') !== -1) {
             return JSON.stringify(data);
         }
 

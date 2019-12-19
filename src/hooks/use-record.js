@@ -6,22 +6,32 @@ export default function useRecord() {
     const [ loading, setLoading ] = useState(false);
     const [ error, setError ] = useState(null);
 
-    const updateData = function () {
+    const updateRecords = function () {
         setLoading(true);
-        recordService.getRecord()
+        return recordService.getRecord()
             .then((records) => {
                 setRecords(records);
                 setLoading(false);
+                setError(null);
             })
             .catch((error) => {
                 setLoading(false);
                 setError(error);
         });
     }
+
+    const addRecord = function(record) {
+        return recordService.addRecord(record)
+            .then(() => {
+                setError(null);
+                return updateRecords();
+            })
+            .catch((error) => setError(error));
+    }
     
     useEffect(() => {
-        updateData();
+        updateRecords();
     }, []);
 
-    return { records, loading, error, updateData };
+    return { records, loading, error, updateRecords, addRecord };
 }
