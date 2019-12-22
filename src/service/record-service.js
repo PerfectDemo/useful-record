@@ -1,24 +1,23 @@
 import { baseApi } from './base-api';
-console.log(baseApi);
 class RecordService {
     constructor(api) {
         this.api = api;
     }
 
     addRecord(record) {
-        return this.api.post('/api/records', record);
+        return this.api.post('/records', record);
     }
 
     deleteRecord(id) {
-        return this.api.delete(`/api/records/${id}`);
+        return this.api.delete(`/records/${id}`);
     }
 
     getRecord() {
-        return this.api.get('/api/records');
+        return this.api.get('/records');
     }
 
     updateRecord(id, record) {
-        return this.api.post(`/api/records/${id}`, record);
+        return this.api.post(`/records/${id}`, record);
     }
 }
 

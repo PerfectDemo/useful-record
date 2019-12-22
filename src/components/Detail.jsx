@@ -7,6 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import Avatar from '@material-ui/core/Avatar';
 
 import { red } from '@material-ui/core/colors';
@@ -22,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     },
     content: {
         padding: theme.spacing(3, 2),
-        height: 300
+        height: 150
     },
 
     commentTitle: {
@@ -32,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Detail() {
     const classes = useStyles();
-    const { selectedRecord } = useContext(Context);
+    const { selectedRecord, comments, commentLoading } = useContext(Context);
 
     return (
         <Paper className={classes.title}>
@@ -47,20 +49,24 @@ export default function Detail() {
                     评论
             </Typography>
             {
-                [0, 1, 2, 3, 4, 5, 6, 7].map(index => (
+                commentLoading ? 
+                <Card style={{ margin: '10px',  textAlign: 'center'}}>
+                    <CircularProgress />
+                </Card>
+                :
+                comments.map((comment, index) => (
                     <Card key={index} style={{ margin: '10px' }}>
                         <CardHeader
                             avatar={
-                            <Avatar aria-label="recipe" className={classes.avatar}>
-                                R
+                            <Avatar aria-label="recipe" src={comment.avatar ? comment.avatar : '../static/images/avatar.jpeg'}>
                             </Avatar>
                             }
-                            title="Shrimp and Chorizo Paella"
-                            subheader="September 14, 2016"
+                            title={comment.name}
+                            subheader={comment._createdOn}
                         />
                         <CardContent>
                             <Typography variant="body1" color="textSecondary" component="p">
-                                有一说一， 确实
+                                {comment.content}
                             </Typography>
                         </CardContent>
                      </Card>

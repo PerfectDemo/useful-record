@@ -7,8 +7,6 @@ import Bar from './components/Bar';
 import SideList from './components/SideList';
 import AddRecordDialog from './components/AddRecordDialog';
 import Detail from './components/Detail';
-import Backdrop from '@material-ui/core/Backdrop';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 import { Context } from './context';
@@ -26,8 +24,6 @@ const useStyles = makeStyles(theme => ({
 export default function() {
 
     const classes = useStyles();
-    const { loading } = useContext(Context);
-
     return (
         <div className={classes.root}>
             <Grid container spacing={2}>
@@ -44,15 +40,6 @@ export default function() {
             
             </Grid>
             <AddRecordDialog />
-            <Backdrop
-                className={classes.backdrop}
-                open={loading}
-                onClick={() => {
-                    setOpen(false);
-                }}
-            >
-                <CircularProgress color="inherit" />
-            </Backdrop>
         </div>     
     )
 }

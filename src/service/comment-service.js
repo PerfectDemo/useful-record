@@ -1,4 +1,4 @@
-import api from './base-api';
+import { baseApi } from './base-api';
 
 class RecordService {
     constructor(api) {
@@ -6,21 +6,22 @@ class RecordService {
     }
 
     addComment(recordId, comment) {
-        return this.api.post(`/api/records/${recordId}/comments`, comment);
+        comment.recordId = recordId;
+        return this.api.post(`/comments/`, comment);
     }
 
-    deleteComment(recordId, id) {
-        return this.api.delete(`/api/records/${recordId}/comments/${id}`);
+    deleteCommen(id) {
+        return this.api.delete(`/comments/${id}}`);
     }
 
     getComments(recordId) {
-        return this.api.get(`/api/records/${recordId}/comments`);
+        return this.api.get(`/comments?q=recordId:${recordId}`);
     }
 
-    updateComment(recordId, id, comment) {
-        return this.api.post(`/api/records/${recordId}/comments/${id}`, comment);
+    updateComment(id, comment) {
+        return this.api.post(`/comments/${id}`, comment);
     }
 }
 
 
-export default new RecordService(api);
+export default new RecordService(baseApi);
