@@ -28,10 +28,19 @@ export default function useRecord() {
             })
             .catch((error) => setError(error));
     }
+
+    const deleteRecord = function(id) {
+        return recordService.deleteRecord(id)
+        .then(() => {
+            setError(null);
+            return updateRecords();
+        })
+        .catch((error) => setError(error));
+    }
     
     useEffect(() => {
         updateRecords();
     }, []);
 
-    return { records, loading, error, updateRecords, addRecord };
+    return { records, loading, error, updateRecords, addRecord, deleteRecord };
 }

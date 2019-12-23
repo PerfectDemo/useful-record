@@ -10,7 +10,7 @@ export const Provider = (props) => {
     const [ selectedRecord, setSelectedRecord ] = useState(null);
     const [ addRecordDialogVisible, setAddRecordDialogVisible ] = useState(false);
 
-    const { records, setRecords, loading, error, updateRecord, addRecord } = useRecord();
+    const { records, setRecords, loading, error, updateRecord, addRecord, deleteRecord } = useRecord();
     const { comments, addComment, updateComment, setRecordId, recordId, commentLoading } = useComment();
 
 
@@ -23,6 +23,7 @@ export const Provider = (props) => {
         error,
         updateRecord,
         addRecord,
+        deleteRecord,
         addRecordDialogVisible,
         setAddRecordDialogVisible,
 
