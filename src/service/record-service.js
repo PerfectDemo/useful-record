@@ -17,7 +17,7 @@ class RecordService {
     }
 
     updateRecord(id, record) {
-        return this.api.post(`/records/${id}`, record);
+        return this.api.put(`/records/${id}`, record);
     }
 }
 
