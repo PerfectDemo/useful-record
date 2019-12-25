@@ -24,19 +24,31 @@ const useStyles = makeStyles(theme => ({
 export default function() {
 
     const classes = useStyles();
+    const { isWide } = useContext(Context);
     return (
         <div className={classes.root}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <Bar />
                 </Grid>
-                <Grid item xs={3}>
-                    <SideList/>
-                </Grid>
-            
-                <Grid item xs={9}>
-                    <Detail />
-                </Grid>
+
+                {
+                    isWide ?
+                    <> 
+                        <Grid item xs={3}>
+                            <SideList/>
+                        </Grid>
+                    
+                        <Grid item xs={9}>
+                            <Detail />
+                        </Grid>
+                    </>
+                    :
+                    <Grid item xs={12}>
+                        <SideList/>
+                    </Grid>
+                }
+              
             
             </Grid>
             <AddRecordDialog />

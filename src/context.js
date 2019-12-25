@@ -1,6 +1,7 @@
 import React, { createContext, useState } from 'react';
 import useRecord from './hooks/use-record';
 import useComment from './hooks/use-comment';
+import useMedia from './hooks/use-media';
 
 export const Context = createContext({});
 
@@ -12,6 +13,12 @@ export const Provider = (props) => {
 
     const { records, setRecords, loading, error, updateRecord, addRecord, deleteRecord } = useRecord();
     const { comments, addComment, updateComment, setRecordId, recordId, commentLoading } = useComment();
+
+    const isWide = useMedia(
+        ['(min-width: 1000px)', '(min-width: 600px)', '(min-width: 0px)'],
+        [true, false, false],
+        true
+    )
 
 
     const context = {
@@ -32,7 +39,9 @@ export const Provider = (props) => {
         updateComment,
         setRecordId,
         recordId,
-        commentLoading 
+        commentLoading, 
+
+        isWide
     };
 
     return (
