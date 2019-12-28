@@ -53,6 +53,7 @@ export default function RecordItem(props) {
     const { deleteRecord, setSelectedRecord, setRecordId, updateRecord, isWide } = useContext(Context);
 
     function handleEdit(e) {
+        setOperateEl(null);
         setEdit(true);
         e.stopPropagation();
     }
@@ -107,7 +108,7 @@ export default function RecordItem(props) {
             { edit ?  <TextField fullWidth id="standard-basic" onChange={e => setEditRecord(e.target.value)} value={editRecord}/> : <ListItemText primary={record.content} /> }
             <>
                 { edit ? 
-                     <>
+                    <>
                         <IconButton aria-label="delete" size="small"
                             onClick={e => {
                                 setEdit(false);
